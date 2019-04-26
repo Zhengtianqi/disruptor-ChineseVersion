@@ -1,18 +1,3 @@
-/*
- * Copyright 2012 LMAX Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.lmax.disruptor;
 
 import java.util.Arrays;
@@ -20,16 +5,15 @@ import java.util.Arrays;
 import com.lmax.disruptor.util.Util;
 
 /**
- * Hides a group of Sequences behind a single Sequence
+ * 在单个序列后面隐藏一组序列
  */
 public final class FixedSequenceGroup extends Sequence
 {
     private final Sequence[] sequences;
 
     /**
-     * Constructor
-     *
-     * @param sequences the list of sequences to be tracked under this sequence group
+     * 构造函数
+     * @param sequences 要在此序列组下跟踪的序列列表
      */
     public FixedSequenceGroup(Sequence[] sequences)
     {
@@ -37,9 +21,9 @@ public final class FixedSequenceGroup extends Sequence
     }
 
     /**
-     * Get the minimum sequence value for the group.
+     * 获取组的最小序列值
      *
-     * @return the minimum sequence value for the group.
+     * @return 组的最小序列值
      */
     @Override
     public long get()
@@ -54,7 +38,7 @@ public final class FixedSequenceGroup extends Sequence
     }
 
     /**
-     * Not supported.
+     * 不支持
      */
     @Override
     public void set(long value)
@@ -63,7 +47,7 @@ public final class FixedSequenceGroup extends Sequence
     }
 
     /**
-     * Not supported.
+     * 不支持
      */
     @Override
     public boolean compareAndSet(long expectedValue, long newValue)
@@ -72,7 +56,7 @@ public final class FixedSequenceGroup extends Sequence
     }
 
     /**
-     * Not supported.
+     * 不支持
      */
     @Override
     public long incrementAndGet()
@@ -81,7 +65,7 @@ public final class FixedSequenceGroup extends Sequence
     }
 
     /**
-     * Not supported.
+     * 不支持
      */
     @Override
     public long addAndGet(long increment)

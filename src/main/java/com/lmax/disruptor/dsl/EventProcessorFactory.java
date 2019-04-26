@@ -5,20 +5,21 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.Sequence;
 
 /**
- * A factory interface to make it possible to include custom event processors in a chain:
- *
- * <pre><code>
+ * 工厂接口：可以在链中包含自定义的消费者
+ * 
+ * <pre>
+ * <code>
  * disruptor.handleEventsWith(handler).then((ringBuffer, barrierSequences) -&gt; new CustomEventProcessor(ringBuffer, barrierSequences));
- * </code></pre>
+ * </code>
+ * </pre>
  */
-public interface EventProcessorFactory<T>
-{
-    /**
-     * Create a new event processor that gates on <code>barrierSequences</code>.
-     *
-     * @param ringBuffer the ring buffer to receive events from.
-     * @param barrierSequences the sequences to gate on
-     * @return a new EventProcessor that gates on <code>barrierSequences</code> before processing events
-     */
-    EventProcessor createEventProcessor(RingBuffer<T> ringBuffer, Sequence[] barrierSequences);
+public interface EventProcessorFactory<T> {
+	/**
+	 * 创建一个新的事件消费者,他在<code>barrierSequences</code>上建立
+	 *
+	 * @param ringBuffer       接受事件的RingBuffer
+	 * @param barrierSequences 要打开的序列
+	 * @return 消费者,在处理事件之前打开<code>barrierSequences</code>
+	 */
+	EventProcessor createEventProcessor(RingBuffer<T> ringBuffer, Sequence[] barrierSequences);
 }

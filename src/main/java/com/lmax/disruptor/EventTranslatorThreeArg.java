@@ -1,36 +1,21 @@
-/*
- * Copyright 2011 LMAX Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.lmax.disruptor;
 
 /**
- * Implementations translate another data representations into events claimed from the {@link RingBuffer}
- *
- * @param <T> event implementation storing the data for sharing during exchange or parallel coordination of an event.
+ * 实现将另一个数据表示转换为{@link RingBuffer}声明的事件
+ * 
+ * @param <T> 事件实现存储数据以便在事件的交换或并行协调期间进行共享
  * @see EventTranslator
  */
 public interface EventTranslatorThreeArg<T, A, B, C>
 {
     /**
-     * Translate a data representation into fields set in given event
+     * 将数据表示转换为在给定事件中设置的字段
      *
-     * @param event    into which the data should be translated.
-     * @param sequence that is assigned to event.
-     * @param arg0     The first user specified argument to the translator
-     * @param arg1     The second user specified argument to the translator
-     * @param arg2     The third user specified argument to the translator
+     * @param event    应该将数据翻译成哪个
+     * @param sequence 分配给事件的序列
+     * @param arg0     第一个用户为翻译者指定了参数
+     * @param arg1     第二个用户为翻译者指定了参数
+     * @param arg2     第三个用户为翻译者指定了参数
      */
     void translateTo(T event, long sequence, A arg0, B arg1, C arg2);
 }

@@ -9,82 +9,60 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * {@link TimeoutBlockingWaitStrategy}的一个变形，当锁无效时，试图无条件唤醒。
  */
-public class LiteTimeoutBlockingWaitStrategy implements WaitStrategy
-{
-    private final Lock lock = new ReentrantLock();
-    private final Condition processorNotifyCondition = lock.newCondition();
-    private final AtomicBoolean signalNeeded = new AtomicBoolean(false);
-    private final long timeoutInNanos;
+public class LiteTimeoutBlockingWaitStrategy implements WaitStrategy {
+	private final Lock lock = new ReentrantLock();
+	private final Condition processorNotifyCondition = lock.newCondition();
+	private final AtomicBoolean signalNeeded = new AtomicBoolean(false);
+	private final long timeoutInNanos;
 
-    public LiteTimeoutBlockingWaitStrategy(final long timeout, final TimeUnit units)
-    {
-        timeoutInNanos = units.toNanos(timeout);
-    }
+	public LiteTimeoutBlockingWaitStrategy(final long timeout, final TimeUnit units) {
+		timeoutInNanos = units.toNanos(timeout);
+	}
 
-    @Override
-    public long waitFor(
-        final long sequence,
-        final Sequence cursorSequence,
-        final Sequence dependentSequence,
-        final SequenceBarrier barrier)
-        throws AlertException, InterruptedException, TimeoutException
-    {
-        long nanos = timeoutInNanos;
+	@Override
+	public long waitFor(final long sequence, final Sequence cursorSequence, final Sequence dependentSequence,
+			final SequenceBarrier barrier) throws AlertException, InterruptedException, TimeoutException {
+		long nanos = timeoutInNanos;
 
-        long availableSequence;
-        if (cursorSequence.get() < sequence)
-        {
-            lock.lock();
-            try
-            {
-                while (cursorSequence.get() < sequence)
-                {
-                    signalNeeded.getAndSet(true);
+		long availableSequence;
+		if (cursorSequence.get() < sequence) {
+			lock.lock();
+			try {
+				while (cursorSequence.get() < sequence) {
+					signalNeeded.getAndSet(true);
 
-                    barrier.checkAlert();
-                    nanos = processorNotifyCondition.awaitNanos(nanos);
-                    if (nanos <= 0)
-                    {
-                        throw TimeoutException.INSTANCE;
-                    }
-                }
-            }
-            finally
-            {
-                lock.unlock();
-            }
-        }
+					barrier.checkAlert();
+					nanos = processorNotifyCondition.awaitNanos(nanos);
+					if (nanos <= 0) {
+						throw TimeoutException.INSTANCE;
+					}
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
 
-        while ((availableSequence = dependentSequence.get()) < sequence)
-        {
-            barrier.checkAlert();
-        }
+		while ((availableSequence = dependentSequence.get()) < sequence) {
+			barrier.checkAlert();
+		}
 
-        return availableSequence;
-    }
+		return availableSequence;
+	}
 
-    @Override
-    public void signalAllWhenBlocking()
-    {
-        if (signalNeeded.getAndSet(false))
-        {
-            lock.lock();
-            try
-            {
-                processorNotifyCondition.signalAll();
-            }
-            finally
-            {
-                lock.unlock();
-            }
-        }
-    }
+	@Override
+	public void signalAllWhenBlocking() {
+		if (signalNeeded.getAndSet(false)) {
+			lock.lock();
+			try {
+				processorNotifyCondition.signalAll();
+			} finally {
+				lock.unlock();
+			}
+		}
+	}
 
-    @Override
-    public String toString()
-    {
-        return "LiteTimeoutBlockingWaitStrategy{" +
-            "processorNotifyCondition=" + processorNotifyCondition +
-            '}';
-    }
+	@Override
+	public String toString() {
+		return "LiteTimeoutBlockingWaitStrategy{" + "processorNotifyCondition=" + processorNotifyCondition + '}';
+	}
 }

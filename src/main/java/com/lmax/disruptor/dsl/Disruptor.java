@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 
- * 两个消费者必须按顺序的时候，事件消费的简单示例：
+ * 两个消费者必须按顺序的时候,事件消费的简单示例：
  * 
  * <pre>
  * <code>Disruptor&lt;MyEvent&gt; disruptor = new Disruptor&lt;MyEvent&gt;(MyEvent.FACTORY, 32, Executors.newCachedThreadPool());
@@ -40,22 +40,22 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @param <T> 所使用的数据类型
  */
 public class Disruptor<T> {
-	// 事件队列，绝大多数功能都委托给ringBuffer处理
+	// 事件队列,绝大多数功能都委托给ringBuffer处理
 	private final RingBuffer<T> ringBuffer;
 	// 用于执行消费者的执行器
 	private final Executor executor;
-	// 消费者仓库，就是消费者的集合
+	// 消费者仓库,就是消费者的集合
 	private final ConsumerRepository<T> consumerRepository = new ConsumerRepository<>();
-	// 启动时检查，只能启动一次
+	// 启动时检查,只能启动一次
 	private final AtomicBoolean started = new AtomicBoolean(false);
 	// 异常消费者
 	private ExceptionHandler<? super T> exceptionHandler = new ExceptionHandlerWrapper<>();
 
 	/**
-	 * 通过构造方法，可以对内部的环和执行器进行初始化。
+	 * 通过构造方法,可以对内部的环和执行器进行初始化。
 	 * 默认参数是{@link com.lmax.disruptor.BlockingWaitStrategy}和{@link ProducerType}
 	 *
-	 * @deprecated 使用{@link ThreadFactory}而不是{@link Executor}，作为ThreadFactory能够在无法构造线程来运行生产者时报告错误。
+	 * @deprecated 使用{@link ThreadFactory}而不是{@link Executor},作为ThreadFactory能够在无法构造线程来运行生产者时报告错误。
 	 * @param eventFactory   创建事件events
 	 * @param ringBufferSize 环的大小
 	 * @param executor       用{@link Executor}来执行消费者
@@ -68,7 +68,7 @@ public class Disruptor<T> {
 	/**
 	 * 创建一个新的Disruptor
 	 * 
-	 * @deprecated 使用{@link ThreadFactory}而不是{@link Executor}，作为ThreadFactory能够在无法构造线程来运行生产者时报告错误。
+	 * @deprecated 使用{@link ThreadFactory}而不是{@link Executor},作为ThreadFactory能够在无法构造线程来运行生产者时报告错误。
 	 * @param eventFactory   创建事件events
 	 * @param ringBufferSize 大小必须是2的幂
 	 * @param executor       执行消费者
@@ -117,17 +117,17 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * barrierSequences是eventHandlers的前置事件处理关卡，是用来保证事件消费的时序性的关键
-	 * 这个方法可以看成为链(chain)的起点. 如果A必须在B之前处理事件，例如
+	 * barrierSequences是eventHandlers的前置事件处理关卡,是用来保证事件消费的时序性的关键
+	 * 这个方法可以看成为链(chain)的起点. 如果A必须在B之前处理事件,例如
 	 * 
 	 * <pre>
 	 * <code>dw.handleEventsWith(A).then(B);</code>
 	 * </pre>
 	 * 
-	 * 此调用是附加的，但通常只应在设置Disruptor实例时调用一次
+	 * 此调用是附加的,但通常只应在设置Disruptor实例时调用一次
 	 *
 	 * @param handlers 处理事件
-	 * @return 可用于链的依赖，{@link EventHandlerGroup}
+	 * @return 可用于链的依赖,{@link EventHandlerGroup}
 	 */
 	@SuppressWarnings("varargs")
 	@SafeVarargs
@@ -136,17 +136,17 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 设置自定义消费者以处理环事件。 当调用{@link #start()}时，Disruptor将自动启动这些消费者该方法可以用作链的起点 例如：
-	 * 如果A必须在B之前处理事件，例如
+	 * 设置自定义消费者以处理环事件。 当调用{@link #start()}时,Disruptor将自动启动这些消费者该方法可以用作链的起点 例如：
+	 * 如果A必须在B之前处理事件,例如
 	 * 
 	 * <pre>
 	 * <code>dw.handleEventsWith(A).then(B);</code>
 	 * </pre>
 	 *
-	 * 这是链的开始， 消费者工厂会传递一个空的序列,所以在此案例中是不必须的.
-	 * 提供这个方法，为了与已知{@link EventHandlerGroup#handleEventsWith(EventProcessorFactory...)}
+	 * 这是链的开始, 消费者工厂会传递一个空的序列,所以在此案例中是不必须的.
+	 * 提供这个方法,为了与已知{@link EventHandlerGroup#handleEventsWith(EventProcessorFactory...)}
 	 * 和 {@link EventHandlerGroup#then(EventProcessorFactory...)} 有阻塞序列的提供
-	 * 此调用是附加的，但通常只应在设置Disruptor实例时调用一次
+	 * 此调用是附加的,但通常只应在设置Disruptor实例时调用一次
 	 *
 	 * @param eventProcessorFactories 用于创建消费者
 	 * @return {@link EventHandlerGroup} 可用于链的依赖
@@ -158,8 +158,8 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 自定义消费者以处理来自环的事件 当{@link #start()}被调用的时候，自动启动processors 该方法可以用作链的起点。例如
-	 * 如果A必须在B之前处理事件，例如
+	 * 自定义消费者以处理来自环的事件 当{@link #start()}被调用的时候,自动启动processors 该方法可以用作链的起点。例如
+	 * 如果A必须在B之前处理事件,例如
 	 * 
 	 * <pre>
 	 * <code>dw.handleEventsWith(A).then(B);</code>
@@ -185,7 +185,7 @@ public class Disruptor<T> {
 
 	/**
 	 * handleEventsWithWorkerPool内部会创建WorkerPool 设置{@link WorkerPool}以将事件分发到工作处理线程池
-	 * 每个事件仅由其中一个消费者处理，当调用{@link #start()}时，Disruptor将自动启动此消费者。
+	 * 每个事件仅由其中一个消费者处理,当调用{@link #start()}时,Disruptor将自动启动此消费者。
 	 *
 	 * @param workHandlers 要处理的事件
 	 * @return {@link EventHandlerGroup} 可用于链的依赖
@@ -197,17 +197,17 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 事件消费异常处理。请注意，只有在调用此方法后，涉及的消费者才会使用异常消费者
+	 * 事件消费异常处理。请注意,只有在调用此方法后,涉及的消费者才会使用异常消费者
 	 *
 	 * @param exceptionHandler 用于未来{@link EventProcessor}的异常消费者。
-	 * @deprecated 此方法仅适用于将来的消费者。 使用setDefaultExceptionHandler，它适用于现有和新的消费者。
+	 * @deprecated 此方法仅适用于将来的消费者。 使用setDefaultExceptionHandler,它适用于现有和新的消费者。
 	 */
 	public void handleExceptionsWith(final ExceptionHandler<? super T> exceptionHandler) {
 		this.exceptionHandler = exceptionHandler;
 	}
 
 	/**
-	 * 指定用于此Disruptor创建的消费者和工作池的异常处理 异常处理将由此Disruptor实例创建的，现有和未来事件处理，和工作池使用
+	 * 指定用于此Disruptor创建的消费者和工作池的异常处理 异常处理将由此Disruptor实例创建的,现有和未来事件处理,和工作池使用
 	 * 
 	 * @param exceptionHandler 要使用的异常处理
 	 */
@@ -236,7 +236,7 @@ public class Disruptor<T> {
 
 	/**
 	 * <p>
-	 * 创建一组时间处理作为依赖 如果A必须在B之前处理事件，例如
+	 * 创建一组时间处理作为依赖 如果A必须在B之前处理事件,例如
 	 * 
 	 * <pre>
 	 * <code>dw.after(A).handleEventsWith(B);</code>
@@ -260,9 +260,9 @@ public class Disruptor<T> {
 	 * 创建一组消费者以用作依赖项。
 	 * 
 	 * @param processors 消费者,
-	 *                   以前用{@link #handleEventsWith(com.lmax.disruptor.EventProcessor...)}设置的消费者，这将成为后续消费者或消费者的栏栅。
+	 *                   以前用{@link #handleEventsWith(com.lmax.disruptor.EventProcessor...)}设置的消费者,这将成为后续消费者或消费者的栏栅。
 	 * 
-	 * @return 一个{@link EventHandlerGroup}，可用于在指定的消费者上设置{@link SequenceBarrier}
+	 * @return 一个{@link EventHandlerGroup},可用于在指定的消费者上设置{@link SequenceBarrier}
 	 * @see #after(com.lmax.disruptor.EventHandler[])
 	 */
 	public EventHandlerGroup<T> after(final EventProcessor... processors) {
@@ -335,7 +335,7 @@ public class Disruptor<T> {
 
 	/**
 	 * 启动过程中会将事件处理者的序列设置为RingBuffer的追踪序列 设置RingBuffer以防止覆盖最慢的消费者尚未处理的任何entry。
-	 * 添加所有消费者后，只能调用一次此方法。
+	 * 添加所有消费者后,只能调用一次此方法。
 	 *
 	 * @return 配置完成的RingBuffer.
 	 */
@@ -358,7 +358,7 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 等待所有能处理的事件都处理完了，再定制事件处理者，有超时选项。 此方法不会关闭executor，也不会等待消费者线程的最终终止。
+	 * 等待所有能处理的事件都处理完了,再定制事件处理者,有超时选项。 此方法不会关闭executor,也不会等待消费者线程的最终终止。
 	 */
 	public void shutdown() {
 		try {
@@ -369,7 +369,7 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 等待所有消费者当前处理所有事件，然后停止消费者。 此方法不会关闭executor，也不会等待消费者线程的最终终止。
+	 * 等待所有消费者当前处理所有事件,然后停止消费者。 此方法不会关闭executor,也不会等待消费者线程的最终终止。
 	 *
 	 * @param timeout  等待处理所有事件的时间量。-1时将给出无限超时
 	 * @param timeUnit 指定timeOut的单位
@@ -387,7 +387,7 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 如果{@link BatchEventProcessor}的行为不合适，这对于创建自定义消费者很有用
+	 * 如果{@link BatchEventProcessor}的行为不合适,这对于创建自定义消费者很有用
 	 * 
 	 * @return 获取当前使用的RingBuffer
 	 */
@@ -426,7 +426,7 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 获取特定消费者使用的{@link SequenceBarrier} 请注意，{@link SequenceBarrier}可能由多个消费者共享。
+	 * 获取特定消费者使用的{@link SequenceBarrier} 请注意,{@link SequenceBarrier}可能由多个消费者共享。
 	 *
 	 * @param handler 获得栏栅的消费者。
 	 * @return 消费者使用的SequenceBarrier。

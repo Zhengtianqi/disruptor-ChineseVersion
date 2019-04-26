@@ -9,7 +9,7 @@ import com.lmax.disruptor.WorkHandler;
 import java.util.Arrays;
 
 /**
- * 创建消费者组 一组{@link EventProcessor}，用作与{@link Disruptor}的一部分。
+ * 创建消费者组 一组{@link EventProcessor},用作与{@link Disruptor}的一部分。
  *
  * @param <T> 消费者使用entry类型
  */
@@ -40,7 +40,7 @@ public class EventHandlerGroup<T> {
 	}
 
 	/**
-	 * 创建一个消费者组，将此组中的消费者结合起来
+	 * 创建一个消费者组,将此组中的消费者结合起来
 	 * 
 	 * @param processors 整合processors
 	 * @return 将已经存在的和新加入的processors整合成一个EventHandlerGroup
@@ -59,7 +59,7 @@ public class EventHandlerGroup<T> {
 
 	/**
 	 * <p>
-	 * 设置批处理以使用RingBuffer中的事件，在每个{@link EventProcessor}之后处理事件，在这个组中处理事件。
+	 * 设置批处理以使用RingBuffer中的事件,在每个{@link EventProcessor}之后处理事件,在这个组中处理事件。
 	 * </p>
 	 * <p>
 	 * 例如 <code>A</code> 必须处理事件早于 <code>B</code>:
@@ -70,7 +70,7 @@ public class EventHandlerGroup<T> {
 	 * </pre>
 	 * 
 	 * @param handlers 将处理事件的批处理
-	 * @return 一个{@link EventHandlerGroup}，可用于在创建的消费者上设置消费者栏栅
+	 * @return 一个{@link EventHandlerGroup},可用于在创建的消费者上设置消费者栏栅
 	 */
 	@SafeVarargs
 	public final EventHandlerGroup<T> then(final EventHandler<? super T>... handlers) {
@@ -79,7 +79,7 @@ public class EventHandlerGroup<T> {
 
 	/**
 	 * <p>
-	 * 设置自定义消费者以处理来自RingBuffer的事件。 当调用{@link Disruptor#start()}时，Disruptor将自动启动这些处理器
+	 * 设置自定义消费者以处理来自RingBuffer的事件。 当调用{@link Disruptor#start()}时,Disruptor将自动启动这些处理器
 	 * <p>
 	 * 例如 <code>A</code> 必须处理事件早于 <code>B</code>:
 	 * </p>
@@ -89,7 +89,7 @@ public class EventHandlerGroup<T> {
 	 * </pre>
 	 * 
 	 * @param eventProcessorFactories 用于创建处理事件的消费者
-	 * @return 一个{@link EventHandlerGroup}，可用于链接依赖项。
+	 * @return 一个{@link EventHandlerGroup},可用于链接依赖项。
 	 */
 	@SafeVarargs
 	public final EventHandlerGroup<T> then(final EventProcessorFactory<T>... eventProcessorFactories) {
@@ -98,7 +98,7 @@ public class EventHandlerGroup<T> {
 
 	/**
 	 * <p>
-	 * 设置工作池来处理RingBuffer中的事件 工作池只处理事件，在此组中的每个{@link EventProcessor}处理完该事件之后。
+	 * 设置工作池来处理RingBuffer中的事件 工作池只处理事件,在此组中的每个{@link EventProcessor}处理完该事件之后。
 	 * 每个事件都将由其中一个消费者实例处理
 	 * </p>
 	 * <p>
@@ -109,7 +109,7 @@ public class EventHandlerGroup<T> {
 	 * <code>dw.handleEventsWith(A).thenHandleEventsWithWorkerPool(B, C);</code>
 	 * </pre>
 	 *
-	 * @param handlers 消费者，每个消费者实例将在工作池中提供额外的线程。
+	 * @param handlers 消费者,每个消费者实例将在工作池中提供额外的线程。
 	 * @return a {@link EventHandlerGroup} that can be used to set up a event
 	 *         processor barrier over the created event processors.
 	 */
@@ -131,7 +131,7 @@ public class EventHandlerGroup<T> {
 	 * </pre>
 	 *
 	 * @param handlers 将处理事件的批处理程序。
-	 * @return 一个{@link EventHandlerGroup}，可用于在创建的消费者上设置事件处理栏栅
+	 * @return 一个{@link EventHandlerGroup},可用于在创建的消费者上设置事件处理栏栅
 	 */
 	@SafeVarargs
 	public final EventHandlerGroup<T> handleEventsWith(final EventHandler<? super T>... handlers) {
@@ -140,7 +140,7 @@ public class EventHandlerGroup<T> {
 
 	/**
 	 * <p>
-	 * 设置自定义消费者以处理来RingBuffer的事件 当调用{@link Disruptor#start()}时，Disruptor将自动启动这些消费者
+	 * 设置自定义消费者以处理来RingBuffer的事件 当调用{@link Disruptor#start()}时,Disruptor将自动启动这些消费者
 	 * </p>
 	 *
 	 * <p>
@@ -151,8 +151,8 @@ public class EventHandlerGroup<T> {
 	 * <code>dw.after(A).handleEventsWith(B);</code>
 	 * </pre>
 	 *
-	 * @param eventProcessorFactories 消费者工厂，用于创建将处理事件的消费者
-	 * @return 一个{@link EventHandlerGroup}，可用于链接依赖项。
+	 * @param eventProcessorFactories 消费者工厂,用于创建将处理事件的消费者
+	 * @return 一个{@link EventHandlerGroup},可用于链接依赖项。
 	 */
 	@SafeVarargs
 	public final EventHandlerGroup<T> handleEventsWith(final EventProcessorFactory<T>... eventProcessorFactories) {
@@ -173,8 +173,8 @@ public class EventHandlerGroup<T> {
 	 * <code>dw.after(A).handleEventsWithWorkerPool(B, C);</code>
 	 * </pre>
 	 *
-	 * @param handlers 将要处理事件的消费者，每个消费者实例将在工作池中提供额外的线程。
-	 * @return 一个{@link EventHandlerGroup}，可用于在创建的消费者上设置事件处理栏栅
+	 * @param handlers 将要处理事件的消费者,每个消费者实例将在工作池中提供额外的线程。
+	 * @return 一个{@link EventHandlerGroup},可用于在创建的消费者上设置事件处理栏栅
 	 */
 	@SafeVarargs
 	public final EventHandlerGroup<T> handleEventsWithWorkerPool(final WorkHandler<? super T>... handlers) {

@@ -5,7 +5,7 @@ import com.lmax.disruptor.*;
 import java.util.*;
 
 /**
- * 内部存储着事件消费者的信息，相当于事件消费者的仓库 将{@link EventHandler}与{@link EventProcessor}相关联
+ * 内部存储着事件消费者的信息,相当于事件消费者的仓库 将{@link EventHandler}与{@link EventProcessor}相关联
  */
 class ConsumerRepository<T> implements Iterable<ConsumerInfo> {
 	private final Map<EventHandler<?>, EventProcessorInfo<T>> eventProcessorInfoByEventHandler = new IdentityHashMap<>();
@@ -37,7 +37,7 @@ class ConsumerRepository<T> implements Iterable<ConsumerInfo> {
 		}
 	}
 
-	// 获取当前已经消费到RingBuffer上事件队列末尾的事件 消费者的序列，可通过参数指定是否要包含已经停止的事件消费者
+	// 获取当前已经消费到RingBuffer上事件队列末尾的事件 消费者的序列,可通过参数指定是否要包含已经停止的事件消费者
 	public Sequence[] getLastSequenceInChain(boolean includeStopped) {
 		List<Sequence> lastSequence = new ArrayList<>();
 		for (ConsumerInfo consumerInfo : consumerInfos) {
