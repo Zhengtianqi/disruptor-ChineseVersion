@@ -1,7 +1,8 @@
 package com.lmax.disruptor;
 
 /**
- * 用于Disruptor的基于轮询。
+ * 用于Disruptor的基于轮询。 
+ * 通过给定的数据提生产者控制序列来创建一个EventPoller 
  */
 public class EventPoller<T> {
 	private final DataProvider<T> dataProvider;

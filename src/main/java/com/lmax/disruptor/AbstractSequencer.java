@@ -19,7 +19,7 @@ public abstract class AbstractSequencer implements Sequencer {
 	protected final int bufferSize;
 	// 标识消费者追上生产者时所使用的等待策略
 	protected final WaitStrategy waitStrategy;
-	// 生产者的已经发布到的sequence   
+	// 生产者的已经发布到的sequence
 	// cursor这个序列就是用来标识生产者的当前序列
 	protected final Sequence cursor = new Sequence(Sequencer.INITIAL_CURSOR_VALUE);
 	// 消费者处理到的序列对象

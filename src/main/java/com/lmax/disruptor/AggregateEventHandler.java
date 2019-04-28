@@ -10,7 +10,7 @@ public final class AggregateEventHandler<T> implements EventHandler<T>, Lifecycl
 
 	/**
 	 * 
-	 * 构造要按顺序调用的{@link EventHandler}的聚合集合。
+	 * 构造方法，按顺序调用的{@link EventHandler}的聚合集合。
 	 * 
 	 * @param eventHandlers 按序列顺序调用
 	 * 

@@ -114,7 +114,7 @@ public class Disruptor<T> {
 	private Disruptor(final RingBuffer<T> ringBuffer, final Executor executor) {
 		this.ringBuffer = ringBuffer;
 		this.executor = executor;
-	}
+	}   
 
 	/**
 	 * barrierSequences是eventHandlers的前置事件处理关卡,是用来保证事件消费的时序性的关键
@@ -127,7 +127,7 @@ public class Disruptor<T> {
 	 * 此调用是附加的,但通常只应在设置Disruptor实例时调用一次
 	 *
 	 * @param handlers 处理事件
-	 * @return 可用于链的依赖,{@link EventHandlerGroup}
+	 * @return 可用于链的依赖，{@link EventHandlerGroup}
 	 */
 	@SuppressWarnings("varargs")
 	@SafeVarargs
@@ -143,7 +143,7 @@ public class Disruptor<T> {
 	 * <code>dw.handleEventsWith(A).then(B);</code>
 	 * </pre>
 	 *
-	 * 这是链的开始, 消费者工厂会传递一个空的序列,所以在此案例中是不必须的.
+	 * 这是链的开始, 消费者工厂会传递一个空的序列,所以在此案例中是不必须的。
 	 * 提供这个方法,为了与已知{@link EventHandlerGroup#handleEventsWith(EventProcessorFactory...)}
 	 * 和 {@link EventHandlerGroup#then(EventProcessorFactory...)} 有阻塞序列的提供
 	 * 此调用是附加的,但通常只应在设置Disruptor实例时调用一次
@@ -334,7 +334,7 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 启动过程中会将事件处理者的序列设置为RingBuffer的追踪序列 设置RingBuffer以防止覆盖最慢的消费者尚未处理的任何entry。
+	 * 启动过程中会将事件消费者的序列设置为RingBuffer的追踪序列 设置RingBuffer以防止覆盖最慢的消费者尚未处理的任何entry。
 	 * 添加所有消费者后,只能调用一次此方法。
 	 *
 	 * @return 配置完成的RingBuffer.
@@ -358,7 +358,7 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 等待所有能处理的事件都处理完了,再定制事件处理者,有超时选项。 此方法不会关闭executor,也不会等待消费者线程的最终终止。
+	 * 等待所有能处理的事件都处理完了,再定制事件消费者,有超时选项。 此方法不会关闭executor,也不会等待消费者线程的最终终止。
 	 */
 	public void shutdown() {
 		try {

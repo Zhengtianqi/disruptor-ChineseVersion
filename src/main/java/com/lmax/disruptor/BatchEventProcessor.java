@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * BatchEventProcessor需要外部提供数据提供者(其实就是队列-RingBuffer)、序列栅栏、异常处理器。 3.
  * BatchEventProcessor其实是将事件委托给内部的EventHandler来处理的。
  * <p>
- *	如果{@link EventHandler}也实现了{@link LifecycleAware}，它将在线程启动后和线程关闭之前立即得到通知。
+ * 如果{@link EventHandler}也实现了{@link LifecycleAware}，它将在线程启动后和线程关闭之前立即得到通知。
  * </p>
  * 
  * @param <T> event 在交换或并行协调事件期间存储数据以进行共享
