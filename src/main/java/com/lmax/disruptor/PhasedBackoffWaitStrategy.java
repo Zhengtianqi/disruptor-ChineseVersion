@@ -4,9 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * PhasedBackoffWaitStrategy的实现方法是先自旋(10000次)，不行再临时让出调度(yield)，
- * 不行再使用其他的策略进行等待。可以根据具体场景自行设置自旋时间、yield时间和备用等待策略。
+ *	不行再使用其他的策略进行等待。可以根据具体场景自行设置自旋时间、yield时间和备用等待策略。
  */
-public final class PhasedBackoffWaitStrategy implements WaitStrategy {
+	public final class PhasedBackoffWaitStrategy implements WaitStrategy {
 	private static final int SPIN_TRIES = 10000;
 	private final long spinTimeoutNanos;
 	private final long yieldTimeoutNanos;
@@ -20,7 +20,7 @@ public final class PhasedBackoffWaitStrategy implements WaitStrategy {
 	}
 
 	/**
-	 * 构建{@link PhasedBackoffWaitStrategy}并回退到{@link BlockingWaitStrategy}
+	 *	构建{@link PhasedBackoffWaitStrategy}并回退到{@link BlockingWaitStrategy}
 	 *
 	 * @param spinTimeout  繁忙旋转的最长时间
 	 * @param yieldTimeout 收益的最长时间
@@ -32,7 +32,7 @@ public final class PhasedBackoffWaitStrategy implements WaitStrategy {
 	}
 
 	/**
-	 * 构建 {@link PhasedBackoffWaitStrategy}并回退到{@link LiteBlockingWaitStrategy}
+	 *	构建 {@link PhasedBackoffWaitStrategy}并回退到{@link LiteBlockingWaitStrategy}
 	 *
 	 * @param spinTimeout  繁忙旋转的最长时间
 	 * @param yieldTimeout 收益的最长时间
@@ -44,7 +44,7 @@ public final class PhasedBackoffWaitStrategy implements WaitStrategy {
 	}
 
 	/**
-	 * 构建 {@link PhasedBackoffWaitStrategy} 并回退到 {@link SleepingWaitStrategy}
+	 *	构建 {@link PhasedBackoffWaitStrategy} 并回退到 {@link SleepingWaitStrategy}
 	 *
 	 * @param spinTimeout  繁忙旋转的最长时间
 	 * @param yieldTimeout 收益的最长时间

@@ -3,7 +3,6 @@ package com.lmax.disruptor;
 /**
  * 
  * ProcessingSequenceBarrier获取可用序号
- * 
  * ProcessingSequenceBarrier的实例是由框架控制的，分别：
  * 
  * @{link Disruptor}类的createEventProcessors方法内

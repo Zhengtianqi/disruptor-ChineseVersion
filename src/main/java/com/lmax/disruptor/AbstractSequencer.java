@@ -10,26 +10,27 @@ import com.lmax.disruptor.util.Util;
  * 作用就是管理追踪序列和关联当前序列。
  */
 public abstract class AbstractSequencer implements Sequencer {
-	// 用来对gatingSequences做原子操作的。Sequence[]里面存储的是事件处理者处理到的序列。
+	// 用来对gatingSequences做原子操作的。
+	// Sequence[]里面存储的是消费者处理到的序列。
 	private static final AtomicReferenceFieldUpdater<AbstractSequencer, Sequence[]> SEQUENCE_UPDATER = AtomicReferenceFieldUpdater
 			.newUpdater(AbstractSequencer.class, Sequence[].class, "gatingSequences");
 
-	// 队列大小
+	// 表示环形数组的大小
 	protected final int bufferSize;
-	// 等待策略
+	// 标识消费者追上生产者时所使用的等待策略
 	protected final WaitStrategy waitStrategy;
-	// 事件发布者的已经发布到的sequence
+	// 生产者的已经发布到的sequence   
+	// cursor这个序列就是用来标识生产者的当前序列
 	protected final Sequence cursor = new Sequence(Sequencer.INITIAL_CURSOR_VALUE);
-	// 事件处理者处理到的序列对象
+	// 消费者处理到的序列对象
 	protected volatile Sequence[] gatingSequences = new Sequence[0];
 
 	/**
 	 *
 	 * 检查队列大小是否是2^n，判断buffersize大小
 	 * 
-	 * @param bufferSize   The total number of entries, must be a positive power of
-	 *                     2.
-	 * @param waitStrategy The wait strategy used by this sequencer
+	 * @param bufferSize   entries总数必须是2的正幂。
+	 * @param waitStrategy sequencer使用的等待策略
 	 */
 	public AbstractSequencer(int bufferSize, WaitStrategy waitStrategy) {
 		if (bufferSize < 1) {
@@ -44,7 +45,7 @@ public abstract class AbstractSequencer implements Sequencer {
 	}
 
 	/**
-	 * 获取事件发布者的序列
+	 * 获取生产者的序列
 	 * 
 	 * @see Sequencer#getCursor()
 	 */
@@ -84,7 +85,7 @@ public abstract class AbstractSequencer implements Sequencer {
 	}
 
 	/**
-	 * 获取gating sequence中事件处理者处理到最小的序列值
+	 * 获取gating sequence中消费者处理到最小的序列值
 	 * 
 	 * @see Sequencer#getMinimumSequence()
 	 */

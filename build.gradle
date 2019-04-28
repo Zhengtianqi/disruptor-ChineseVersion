@@ -54,6 +54,8 @@ dependencies {
     checkstyle 'com.puppycrawl.tools:checkstyle:8.2'
     testCompile 'junit:junit:4.12'
     perfCompile 'org.hdrhistogram:HdrHistogram:1.2.1'
+    compile 'org.junit.jupiter:junit-jupiter-api'
+    compile 'org.junit.jupiter:junit-jupiter-api'
 }
 
 idea.module {

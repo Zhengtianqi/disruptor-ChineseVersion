@@ -8,10 +8,10 @@ import com.lmax.disruptor.util.Util;
 
 /**
  * 
- * 适用于多线程publiser。MultiProducerSequencer每次获取序列都是从Sequence中获取的。Sequence中针对value的操作都是原子的。
+ *	适用于多线程publiser。MultiProducerSequencer每次获取序列都是从Sequence中获取的。Sequence中针对value的操作都是原子的。
  * 
- * MultiProducerSequencer内部多了一个availableBuffer，是一个int型的数组，size大小和RingBuffer的Size一样大，
- * 用来追踪Ringbuffer每个槽的状态，构造MultiProducerSequencer的时候会进行初始化，availableBuffer数组中的每个元素会被初始化成-1。
+ *	MultiProducerSequencer内部多了一个availableBuffer，是一个int型的数组，size大小和RingBuffer的Size一样大，
+ *	用来追踪Ringbuffer每个槽的状态，构造MultiProducerSequencer的时候会进行初始化，availableBuffer数组中的每个元素会被初始化成-1。
  * 
  */
 public final class MultiProducerSequencer extends AbstractSequencer {
@@ -31,7 +31,7 @@ public final class MultiProducerSequencer extends AbstractSequencer {
 	private final int indexShift;
 
 	/**
-	 * 用选定的等待策略和缓冲区大小构造一个序列器。
+	 *	用选定的等待策略和缓冲区大小构造一个序列器。
 	 *
 	 * @param bufferSize   将要排序的缓冲区大小
 	 * @param waitStrategy 等待序列的等待策略

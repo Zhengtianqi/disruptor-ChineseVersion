@@ -43,7 +43,7 @@ public final class WorkProcessor<T> implements EventProcessor {
 	 * @param sequenceBarrier  等待它
 	 * @param workHandler      是调度事件的委托
 	 * @param exceptionHandler 发生错误时回调
-	 * @param workSequence     从中宣称要开展的下一个活动。 It should always be initialised as
+	 * @param workSequence     从中宣称要开展的下一个活动
 	 *                         {@link Sequencer#INITIAL_CURSOR_VALUE}
 	 */
 	public WorkProcessor(final RingBuffer<T> ringBuffer, final SequenceBarrier sequenceBarrier,

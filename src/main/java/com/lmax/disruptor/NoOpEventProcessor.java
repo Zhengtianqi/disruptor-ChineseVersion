@@ -3,9 +3,9 @@ package com.lmax.disruptor;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 没有{@link EventProcessor}的操作版本,只跟踪{@link Sequence}。
+ *	没有{@link EventProcessor}的操作版本,只跟踪{@link Sequence}。
  * <p>
- * 这在测试中或从发布者预填充{@link RingBuffer}时非常有用。
+ *	这在测试中或从发布者预填充{@link RingBuffer}时非常有用。
  * </p>
  */
 public final class NoOpEventProcessor implements EventProcessor {
@@ -13,7 +13,7 @@ public final class NoOpEventProcessor implements EventProcessor {
 	private final AtomicBoolean running = new AtomicBoolean(false);
 
 	/**
-	 * 构建一个跟踪{@link Sequence}对象的{@link EventProcessor}。
+	 *	构建一个跟踪{@link Sequence}对象的{@link EventProcessor}。
 	 *
 	 * @param 根据的序列
 	 */
@@ -44,7 +44,7 @@ public final class NoOpEventProcessor implements EventProcessor {
 	}
 
 	/**
-	 * 跟随（通过包装）另一个序列
+	 *	跟随（通过包装）另一个序列
 	 */
 	private static final class SequencerFollowingSequence extends Sequence {
 		private final RingBuffer<?> sequencer;

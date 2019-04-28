@@ -10,7 +10,7 @@ public final class YieldingWaitStrategy implements WaitStrategy {
 	private static final int SPIN_TRIES = 100;
 
 	/**
-	 * 自旋100次后，线程放弃cpu资源。
+	 * 自旋100次后，线程放弃cpu资源
 	 */
 	@Override
 	public long waitFor(final long sequence, Sequence cursor, final Sequence dependentSequence,
