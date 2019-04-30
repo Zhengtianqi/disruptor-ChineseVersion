@@ -6,7 +6,7 @@ import com.lmax.disruptor.dsl.ProducerType;
 import com.lmax.disruptor.util.Util;
 
 /**
- * RingBufferPad用于缓存行填充
+ * RingBufferPad用于缓存行填充，消除伪共享
  */
 abstract class RingBufferPad {
 	protected long p1, p2, p3, p4, p5, p6, p7;

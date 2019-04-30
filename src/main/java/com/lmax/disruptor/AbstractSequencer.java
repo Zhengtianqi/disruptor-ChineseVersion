@@ -7,7 +7,7 @@ import com.lmax.disruptor.util.Util;
 
 /**
  * 各种sequencer的基类（单/多） 提供公有的功能，如gating sequences的管理（add/remove） 和 当前光标的所在位置。
- * 作用就是管理追踪序列和关联当前序列。
+ * 作用就是管理消费者追踪序列和表示生产者当前序列。
  */
 public abstract class AbstractSequencer implements Sequencer {
 	// 用来对gatingSequences做原子操作的。
