@@ -9,7 +9,7 @@ public interface ExceptionHandler<T> {
 	 * 处理事件时处理未捕获异常的策略
 	 * </p>
 	 * <p>
-	 * 如果策略希望终止{@link BatchEventProcessor}的进一步处理，那么它应该抛出{@link timeException}。
+	 * 如果策略希望终止{@link BatchEventProcessor}的进一步处理，那么它应该抛出{@link TimeException}。
 	 * </p>
 	 *
 	 * @param ex       从{@link EventHandler}传播的异常。

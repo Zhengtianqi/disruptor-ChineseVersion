@@ -14,7 +14,7 @@ final class ProcessingSequenceBarrier implements SequenceBarrier {
 	// 等待策略
 	private final WaitStrategy waitStrategy;
 	// 当消费者之前没有依赖关系的时候，那么dependentSequence=cursorSequence
-	// 存在依赖关系的时候，dependentSequence 里存放的是一组依赖的Sequence，get方法得到的是最小的序列值
+	// 存在依赖关系的时候，dependentSequence里存放的是一组依赖的Sequence，get方法得到的是最小的序列值
 	// 所谓的依赖关系是有两个消费者A、B，其中B需要在A之后进行消费，这A的序列就是B需要依赖的序列，因为B的消费速度不能超过A。
 	private final Sequence dependentSequence;
 	// 判断是否执行shutdown

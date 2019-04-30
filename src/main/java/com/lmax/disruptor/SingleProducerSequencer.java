@@ -44,7 +44,7 @@ public final class SingleProducerSequencer extends SingleProducerSequencerFields
 	 * 使用选定的等待策略和buffer大小构造Sequencer。
 	 *
 	 * @param bufferSize 这个序列的buffer大小
-	 * @param 等待策略
+	 * @param waitStrategy 等待策略
 	 */
 	public SingleProducerSequencer(int bufferSize, WaitStrategy waitStrategy) {
 		super(bufferSize, waitStrategy);

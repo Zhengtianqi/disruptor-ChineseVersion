@@ -2,7 +2,7 @@ package com.lmax.disruptor;
 
 /**
  * 
- * 由{@link RingBuffer}调用以预先调用所有事件以填充RingBuffer。
+ * 由{@link RingBuffer}调用，以预先调用所有事件以填充RingBuffer。
  *
  * @param <T> 存储的事件以便在事件在交换或者并行协调期间进行共享
  */

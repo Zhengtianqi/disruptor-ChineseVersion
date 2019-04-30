@@ -15,7 +15,7 @@ public final class NoOpEventProcessor implements EventProcessor {
 	/**
 	 *	构建一个跟踪{@link Sequence}对象的{@link EventProcessor}。
 	 *
-	 * @param 根据的序列
+	 * @param sequencer 根据的序列
 	 */
 	public NoOpEventProcessor(final RingBuffer<?> sequencer) {
 		sequence = new SequencerFollowingSequence(sequencer);

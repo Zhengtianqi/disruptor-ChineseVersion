@@ -52,7 +52,7 @@ public class Disruptor<T> {
 	private ExceptionHandler<? super T> exceptionHandler = new ExceptionHandlerWrapper<>();
 
 	/**
-	 * 通过构造方法,可以对内部的环和执行器进行初始化。
+	 * 通过构造方法,可以对内部的环和消费者进行初始化。
 	 * 默认参数是{@link com.lmax.disruptor.BlockingWaitStrategy}和{@link ProducerType}
 	 *
 	 * @deprecated 使用{@link ThreadFactory}而不是{@link Executor},作为ThreadFactory能够在无法构造线程来运行生产者时报告错误。
@@ -158,9 +158,8 @@ public class Disruptor<T> {
 	}
 
 	/**
-	 * 自定义消费者以处理来自环的事件 当{@link #start()}被调用的时候,自动启动processors 该方法可以用作链的起点。例如
-	 * 如果A必须在B之前处理事件,例如
-	 * 
+	 * 自定义消费者以处理来自环的事件 当{@link #start()}被调用的时候,自动启动processors 该方法可以用作链的起点。
+	 * 例如 如果A必须在B之前处理事件
 	 * <pre>
 	 * <code>dw.handleEventsWith(A).then(B);</code>
 	 * </pre>

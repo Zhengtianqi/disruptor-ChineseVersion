@@ -64,7 +64,7 @@ public class Sequence extends RhsPadding {
 	 * 
 	 * ordered write，在当前写操作和任意之前的读操作之间加入Store/Store屏障
 	 *
-	 * @param 序列的新值。
+	 * @param value 序列的新值。
 	 */
 	public void set(final long value) {
 		UNSAFE.putOrderedLong(this, VALUE_OFFSET, value);
@@ -103,7 +103,7 @@ public class Sequence extends RhsPadding {
 	/**
 	 * 以原子方式添加提供的值
 	 *
-	 * @param 自动添加值到序列
+	 * @param increment 自动添加值到序列
 	 * @return 增量后的值
 	 */
 	public long addAndGet(final long increment) {

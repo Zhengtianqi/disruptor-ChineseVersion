@@ -14,7 +14,7 @@ public interface SequenceBarrier {
 	 *
 	 * 等待一个序列变为可用，然后消费这个序列。是给事件处理者使用的。
 	 * 
-	 * @param 等待序列
+	 * @param sequence 等待序列
 	 * @return 可用序列
 	 * @throws AlertException       如果Disruptor状态发生看变化
 	 * @throws InterruptedException 如果线程需要在条件变化时上唤醒。

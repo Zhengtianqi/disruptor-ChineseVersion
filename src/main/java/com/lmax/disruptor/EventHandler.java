@@ -4,7 +4,7 @@ package com.lmax.disruptor;
  * 回调接口，用于处理{@link RingBuffer}中可用的事件
  * 
  * @param <T> 事件实现存储数据以便在事件的交换或并行协调期间进行共享
- * @see 处理从handler传播出去的异常：BatchEventProcessor#setExceptionHandler(ExceptionHandler)
+ * @see BatchEventProcessor#setExceptionHandler(ExceptionHandler) 处理从handler传播出去的异常
  */
 public interface EventHandler<T> {
 	/**

@@ -9,7 +9,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * BasicExecutor只是简单的实现了Executor接口,用于解决没有传递Executor对象的时候使用默认的BasicExecutor即可,可以理解就是默认提供的线程池对象
+ * 默认提供的线程池对象，用于解决没有传递Executor对象的时候使用默认的BasicExecutor即可
  */
 public class BasicExecutor implements Executor {
 	private final ThreadFactory factory;

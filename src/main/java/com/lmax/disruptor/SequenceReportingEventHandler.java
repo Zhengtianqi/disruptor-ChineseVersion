@@ -2,7 +2,7 @@ package com.lmax.disruptor;
 
 /**
  * 由{@link BatchEventProcessor}用于设置回调，允许{@link EventHandler}在完成消费事件时，
- * 通知{@link EventHandler#onEvent(object，long，boolean)}调用之后发生这种情况。
+ * 通知EventHandler#onEvent(T，long，boolean)调用之后发生这种情况。
  * <p>
  * 通常，这将在处理程序执行某种批处理操作(例如写入IO设备)时使用;
  * 在操作完成后，实现应该调用{@link Sequence#set}来更新序列，并允许依赖于此处理程序的其他进程进行。

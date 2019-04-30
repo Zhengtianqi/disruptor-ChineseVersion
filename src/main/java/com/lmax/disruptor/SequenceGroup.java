@@ -52,7 +52,7 @@ public final class SequenceGroup extends Sequence {
 	 * 
 	 * 添加一个序列到序列组，这个方法只能在初始化的时候调用。 运行时添加的话，使用addWhileRunning(Cursored, Sequence)
 	 *
-	 * @param 要添加到聚合的序列
+	 * @param sequence 要添加到聚合的序列
 	 * @see SequenceGroup#addWhileRunning(Cursored, Sequence)
 	 */
 	public void add(final Sequence sequence) {
@@ -71,7 +71,7 @@ public final class SequenceGroup extends Sequence {
 	 * 
 	 * 将序列组中出现的第一个给定的序列移除。
 	 *
-	 * @param 要从此聚合中删除的序列
+	 * @param sequence 要从此聚合中删除的序列
 	 * @return 如果序列被删除则为true，否则为false
 	 */
 	public boolean remove(final Sequence sequence) {
