@@ -4,8 +4,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 
- * 1.首先，由于是Work模式，必然是多个事件处理者(WorkProcessor)处理同一批事件，那么肯定会存在多个处理者对同一个要处理事件的竞争，所以出现了一个workSequence，所有的处理者都使用这一个workSequence，大家通过对workSequence的原子操作来保证不会处理相同的事件。
- * 2.其次，多个事件处理者和事件发布者之间也需要协调，需要等待事件发布者发布完事件之后才能对其进行处理，这里还是使用序列栅栏来协调(sequenceBarrier.waitFor)。
+ * 1.首先，由于是Work模式，必然是多个事件消费者(WorkProcessor)处理同一批事件，那么肯定会存在多个消费者对同一个要处理事件的竞争，所以出现了一个workSequence，所有的消费者都使用这一个workSequence，大家通过对workSequence的原子操作来保证不会处理相同的事件。
+ * 2.其次，多个事件消费者和事件发布者之间也需要协调，需要等待事件发布者发布完事件之后才能对其进行处理，这里还是使用序列栅栏来协调(sequenceBarrier.waitFor)。
  * 
  * {@link WorkProcessor}包装了一个{@link WorkHandler}，有效地消耗了sequence并确保了适当的barriers。
  *
