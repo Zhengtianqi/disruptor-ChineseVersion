@@ -11,7 +11,7 @@ public class KickAssEventHandler implements EventHandler{
 
 	@Override
 	public void onEvent(Object event, long sequence, boolean endOfBatch) throws Exception {
-		 System.out.println("kick your ass "+sequence+" times!!!!");  
+		 System.out.println(sequence+" times!!!!");  
 	}
 
 }

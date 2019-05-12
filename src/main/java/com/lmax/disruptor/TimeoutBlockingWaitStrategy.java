@@ -1,62 +1,72 @@
 package com.lmax.disruptor;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+
+import static com.lmax.disruptor.util.Util.awaitNanos;
 
 /**
  * TimeoutBlockingWaitStrategy的实现方法是阻塞给定的时间，超过时间的话会抛出超时异常。
  */
-public class TimeoutBlockingWaitStrategy implements WaitStrategy {
-	private final Lock lock = new ReentrantLock();
-	private final Condition processorNotifyCondition = lock.newCondition();
-	private final long timeoutInNanos;
+public class TimeoutBlockingWaitStrategy implements WaitStrategy
+{
+    private final Object mutex = new Object();
+    private final long timeoutInNanos;
 
-	public TimeoutBlockingWaitStrategy(final long timeout, final TimeUnit units) {
-		timeoutInNanos = units.toNanos(timeout);
-	}
+    public TimeoutBlockingWaitStrategy(final long timeout, final TimeUnit units)
+    {
+        timeoutInNanos = units.toNanos(timeout);
+    }
 
-	@Override
-	public long waitFor(final long sequence, final Sequence cursorSequence, final Sequence dependentSequence,
-			final SequenceBarrier barrier) throws AlertException, InterruptedException, TimeoutException {
-		long nanos = timeoutInNanos;
+    @Override
+    public long waitFor(
+        final long sequence,
+        final Sequence cursorSequence,
+        final Sequence dependentSequence,
+        final SequenceBarrier barrier)
+        throws AlertException, InterruptedException, TimeoutException
+    {
+        long timeoutNanos = timeoutInNanos;
 
-		long availableSequence;
-		if (cursorSequence.get() < sequence) {
-			lock.lock();
-			try {
-				while (cursorSequence.get() < sequence) {
-					barrier.checkAlert();
-					nanos = processorNotifyCondition.awaitNanos(nanos);
-					if (nanos <= 0) {
-						throw TimeoutException.INSTANCE;
-					}
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+        long availableSequence;
+        if (cursorSequence.get() < sequence)
+        {
+            synchronized (mutex)
+            {
+                while (cursorSequence.get() < sequence)
+                {
+                    barrier.checkAlert();
+                    timeoutNanos = awaitNanos(mutex, timeoutNanos);
+                    if (timeoutNanos <= 0)
+                    {
+                        throw TimeoutException.INSTANCE;
+                    }
+                }
+            }
+        }
 
-		while ((availableSequence = dependentSequence.get()) < sequence) {
-			barrier.checkAlert();
-		}
+        while ((availableSequence = dependentSequence.get()) < sequence)
+        {
+            barrier.checkAlert();
+        }
 
-		return availableSequence;
-	}
+        return availableSequence;
+    }
 
-	@Override
-	public void signalAllWhenBlocking() {
-		lock.lock();
-		try {
-			processorNotifyCondition.signalAll();
-		} finally {
-			lock.unlock();
-		}
-	}
+    @Override
+    public void signalAllWhenBlocking()
+    {
+        synchronized (mutex)
+        {
+            mutex.notifyAll();
+        }
+    }
 
-	@Override
-	public String toString() {
-		return "TimeoutBlockingWaitStrategy{" + "processorNotifyCondition=" + processorNotifyCondition + '}';
-	}
+    @Override
+    public String toString()
+    {
+        return "TimeoutBlockingWaitStrategy{" +
+            "mutex=" + mutex +
+            ", timeoutInNanos=" + timeoutInNanos +
+            '}';
+    }
 }

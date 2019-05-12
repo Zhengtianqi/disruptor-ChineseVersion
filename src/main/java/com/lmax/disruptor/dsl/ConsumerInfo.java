@@ -6,21 +6,22 @@ import com.lmax.disruptor.SequenceBarrier;
 import java.util.concurrent.Executor;
 
 /**
- * ConsumerInfo就相当于事件消费者信息和序列栅栏的包装类 ConsumerInfo本身是一个接口,针对Event模式和Work模式
- * 提供了两种实现：@{link EventProcessorInfo}和@{link WorkerPoolInfo}
+ * ConsumerInfo就相当于事件消费者信息和序列栅栏的包装类
+ * ConsumerInfo本身是一个接口,针对Event模式和Work模式,提供了两种实现: @{link EventProcessorInfo}和@{link WorkerPoolInfo}
  */
-interface ConsumerInfo {
-	Sequence[] getSequences();
+interface ConsumerInfo
+{
+    Sequence[] getSequences();
 
-	SequenceBarrier getBarrier();
+    SequenceBarrier getBarrier();
 
-	boolean isEndOfChain();
+    boolean isEndOfChain();
 
-	void start(Executor executor);
+    void start(Executor executor);
 
-	void halt();
+    void halt();
 
-	void markAsUsedInBarrier();
+    void markAsUsedInBarrier();
 
-	boolean isRunning();
+    boolean isRunning();
 }
